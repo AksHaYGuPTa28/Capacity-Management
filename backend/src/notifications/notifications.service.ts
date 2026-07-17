@@ -58,7 +58,7 @@ export class NotificationsService {
       if (p.endDate && p.endDate <= in14Days && p.endDate >= now) {
         notifications.push({
           type: 'PROJECT_ENDING',
-          message: `${p.name} ends on ${p.endDate.toISOString().slice(0, 10)} — plan reallocation.`,
+          message: `${p.name} ends on ${p.endDate.toISOString().slice(0, 10)}. Plan reallocation.`,
           projectId: p.id,
         });
       }

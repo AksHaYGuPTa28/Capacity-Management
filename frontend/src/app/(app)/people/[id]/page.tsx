@@ -148,7 +148,7 @@ export default function PersonDetailPage({ params }: { params: Promise<{ id: str
                       <td className="px-4 py-2">{a.project?.name ?? a.projectId}</td>
                       <td className="px-4 py-2">{a.hoursPerWeek}h</td>
                       <td className="px-4 py-2">{new Date(a.startDate).toLocaleDateString()}</td>
-                      <td className="px-4 py-2">{a.endDate ? new Date(a.endDate).toLocaleDateString() : '—'}</td>
+                      <td className="px-4 py-2">{a.endDate ? new Date(a.endDate).toLocaleDateString() : '-'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -174,7 +174,7 @@ export default function PersonDetailPage({ params }: { params: Promise<{ id: str
                   <div>
                     <Badge variant={t.type === 'VACATION' ? 'info' : 'outline'}>{t.label ?? t.type}</Badge>
                     <span className="ml-2 text-slate-500">
-                      {new Date(t.startDate).toLocaleDateString()} – {new Date(t.endDate).toLocaleDateString()}
+                      {new Date(t.startDate).toLocaleDateString()} - {new Date(t.endDate).toLocaleDateString()}
                     </span>
                   </div>
                   {can.editResource(role) && (

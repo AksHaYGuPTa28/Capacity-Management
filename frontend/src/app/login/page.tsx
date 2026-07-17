@@ -86,7 +86,7 @@ export default function LoginPage() {
         </div>
         <h1 className="text-2xl font-semibold">Capacity Management Demo</h1>
         <p className="max-w-md text-sm text-slate-500 dark:text-slate-400">
-          Pick a demo persona to sign in instantly — no password needed. This is a demonstration app with synthetic
+          Pick a demo persona to sign in instantly, no password needed. This is a demonstration app with synthetic
           data.
         </p>
       </div>

@@ -20,8 +20,8 @@ export class AiService {
   constructor(private prisma: PrismaService) {}
 
   /**
-   * Rule-based question answering over the seeded demo data. Deterministic and offline
-   * (no external LLM call) — intentional, so the demo works without an API key.
+   * Rule-based question answering over the seeded demo data. Deterministic and offline by
+   * design (no external LLM call), so the demo works without an API key.
    */
   async ask(question: string) {
     const q = question.toLowerCase();
@@ -81,10 +81,10 @@ export class AiService {
       staffingPct === null
         ? 'no required-capacity target is set, so staffing coverage cannot be judged.'
         : staffingPct >= 95
-          ? 'yes — the project is fully staffed against its required capacity.'
+          ? 'yes, the project is fully staffed against its required capacity.'
           : staffingPct >= 70
             ? 'likely, but the project is understaffed and at risk without more allocation.'
-            : 'unlikely as staffed today — the project is significantly understaffed.';
+            : 'unlikely as staffed today: the project is significantly understaffed.';
 
     return this.respond(
       `${match.name}: ${allocatedHours}h/week allocated vs ${required}h/week required` +

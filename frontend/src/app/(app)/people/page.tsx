@@ -155,7 +155,7 @@ function PeoplePageInner() {
                         </div>
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{r.team?.name ?? '—'}</td>
+                    <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{r.team?.name ?? '-'}</td>
                     <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{r.location}</td>
                     <td className="px-4 py-3">
                       <ResourceStatusBadge status={r.computedStatus} />

@@ -151,7 +151,7 @@ export function ProjectFormDialog({
           <div className="flex flex-col gap-1">
             <Label>Project Manager</Label>
             <Select value={form.projectManagerId} onChange={(e) => setForm({ ...form, projectManagerId: e.target.value })}>
-              <option value="">— None —</option>
+              <option value="">None</option>
               {resources.map((r) => (
                 <option key={r.id} value={r.id}>
                   {r.name}

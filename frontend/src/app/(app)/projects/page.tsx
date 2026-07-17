@@ -77,7 +77,7 @@ export default function ProjectsPage() {
                   <div className="text-xs text-slate-400">No capacity target set</div>
                 )}
                 <div className="text-xs text-slate-400">
-                  {new Date(p.startDate).toLocaleDateString()} – {p.endDate ? new Date(p.endDate).toLocaleDateString() : 'ongoing'}
+                  {new Date(p.startDate).toLocaleDateString()} - {p.endDate ? new Date(p.endDate).toLocaleDateString() : 'ongoing'}
                 </div>
               </CardContent>
             </Card>

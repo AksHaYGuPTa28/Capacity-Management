@@ -99,7 +99,7 @@ export default function AllocationsPage() {
                             min={0}
                             defaultValue={cell?.hoursPerWeek || ''}
                             disabled={!editable || pending[key]}
-                            placeholder="—"
+                            placeholder="-"
                             onBlur={(e) => commitCell(row.resource.id, p.id, cell?.id, e.target.value)}
                             onKeyDown={(e) => {
                               if (e.key === 'Enter') (e.target as HTMLInputElement).blur();

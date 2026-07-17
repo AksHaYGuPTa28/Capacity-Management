@@ -33,7 +33,7 @@ export default function TeamDetailPage({ params }: { params: Promise<{ id: strin
           <div>
             <h1 className="text-xl font-semibold">{team.name}</h1>
             <p className="text-sm text-slate-500">
-              {team.department} · Manager: {team.manager?.name ?? '—'}
+              {team.department} · Manager: {team.manager?.name ?? '-'}
             </p>
           </div>
           <div className="flex items-center gap-6">

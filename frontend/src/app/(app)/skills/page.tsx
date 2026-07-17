@@ -95,7 +95,7 @@ export default function SkillsPage() {
                       <div className="text-xs text-slate-500">{r.jobTitle}</div>
                     </div>
                     <div className="text-xs text-slate-400">
-                      {r.skills?.find((s) => s.skill.name.toLowerCase() === searchSkill.toLowerCase())?.level ?? '—'}/5
+                      {r.skills?.find((s) => s.skill.name.toLowerCase() === searchSkill.toLowerCase())?.level ?? '-'}/5
                     </div>
                   </Link>
                 ))}

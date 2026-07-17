@@ -102,7 +102,7 @@ export function ResourceFormDialog({ open, onOpenChange, teams, resource, onSave
                   setForm({ ...form, teamId: e.target.value, department: team?.department ?? form.department });
                 }}
               >
-                <option value="">— None —</option>
+                <option value="">None</option>
                 {teams.map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.name}

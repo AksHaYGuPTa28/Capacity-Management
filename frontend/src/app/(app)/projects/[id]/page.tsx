@@ -38,7 +38,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             </div>
             <p className="mt-1 text-sm text-slate-500">{project.customer ?? 'Internal project'}</p>
             <p className="mt-1 text-sm text-slate-500">
-              PM: {project.projectManager?.name ?? '—'} · {new Date(project.startDate).toLocaleDateString()} –{' '}
+              PM: {project.projectManager?.name ?? '-'} · {new Date(project.startDate).toLocaleDateString()} -{' '}
               {project.endDate ? new Date(project.endDate).toLocaleDateString() : 'ongoing'}
             </p>
             {project.budget != null && <p className="mt-1 text-sm text-slate-500">Budget: ${project.budget.toLocaleString()}</p>}
@@ -96,7 +96,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   </td>
                   <td className="px-4 py-2">{a.hoursPerWeek}h</td>
                   <td className="px-4 py-2">{new Date(a.startDate).toLocaleDateString()}</td>
-                  <td className="px-4 py-2">{a.endDate ? new Date(a.endDate).toLocaleDateString() : '—'}</td>
+                  <td className="px-4 py-2">{a.endDate ? new Date(a.endDate).toLocaleDateString() : '-'}</td>
                 </tr>
               ))}
             </tbody>

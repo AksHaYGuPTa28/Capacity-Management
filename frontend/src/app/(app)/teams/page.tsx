@@ -42,7 +42,7 @@ export default function TeamsPage() {
                   <h3 className="font-semibold">{t.name}</h3>
                   <p className="text-xs text-slate-500">{t.department}</p>
                 </div>
-                <div className="text-xs text-slate-500">Manager: {t.manager?.name ?? '—'}</div>
+                <div className="text-xs text-slate-500">Manager: {t.manager?.name ?? '-'}</div>
                 <div className="flex items-center justify-between text-xs text-slate-500">
                   <span>{t.memberCount} members</span>
                   <span>{t.utilization}% utilized</span>

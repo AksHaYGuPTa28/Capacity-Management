@@ -427,14 +427,14 @@ async function seedNotifications(
   for (const r of overallocatedPool.slice(0, 3)) {
     notifications.push({
       type: 'OVER_ALLOCATION' as const,
-      message: `${r.name} is overallocated this week — review their assignments.`,
+      message: `${r.name} is overallocated this week. Review their assignments.`,
       resourceId: r.id,
     });
   }
   if (endingSoon) {
     notifications.push({
       type: 'PROJECT_ENDING' as const,
-      message: `${endingSoon.name} is ending soon — plan resource reallocation.`,
+      message: `${endingSoon.name} is ending soon. Plan resource reallocation.`,
       projectId: endingSoon.id,
     });
   }
@@ -447,7 +447,7 @@ async function seedNotifications(
   }
   notifications.push({
     type: 'VACATION_CONFLICT' as const,
-    message: 'A planned vacation overlaps with an active allocation — check the calendar for conflicts.',
+    message: 'A planned vacation overlaps with an active allocation. Check the calendar for conflicts.',
   });
 
   for (const n of notifications) {

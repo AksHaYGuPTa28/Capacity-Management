@@ -62,7 +62,7 @@ export function Sidebar() {
         })}
       </nav>
       <div className="border-t border-slate-200 p-3 text-xs text-slate-400 dark:border-slate-800">
-        Demonstration build — data is synthetic.
+        Demonstration build. Data is synthetic.
       </div>
     </aside>
   );
