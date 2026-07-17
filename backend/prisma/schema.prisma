@@ -1,0 +1,174 @@
+// Capacity Management Demo - Prisma schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  RESOURCE_MANAGER
+  TEAM_MANAGER
+  VIEWER
+}
+
+enum ResourceStatus {
+  AVAILABLE
+  PARTIAL
+  FULLY_ALLOCATED
+  OVER_ALLOCATED
+  LEAVE
+}
+
+enum ProjectStatus {
+  PLANNING
+  RUNNING
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum TimeOffType {
+  VACATION
+  PUBLIC_HOLIDAY
+}
+
+enum NotificationType {
+  OVER_ALLOCATION
+  VACATION_CONFLICT
+  PROJECT_ENDING
+  RESOURCE_AVAILABLE
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role
+  resource     Resource?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  managedTeams   Team[]    @relation("TeamManager")
+  managedProjects Project[] @relation("ProjectManagerUser")
+}
+
+model Team {
+  id         String   @id @default(uuid())
+  name       String
+  department String
+  managerId  String?
+  manager    User?    @relation("TeamManager", fields: [managerId], references: [id])
+  members    Resource[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Resource {
+  id                String         @id @default(uuid())
+  name              String
+  photoUrl          String?
+  jobTitle          String
+  teamId            String?
+  team              Team?          @relation(fields: [teamId], references: [id])
+  department        String
+  location          String
+  employmentPct     Int            @default(100)
+  weeklyCapacityHours Float        @default(40)
+  status            ResourceStatus @default(AVAILABLE)
+  userId            String?        @unique
+  user              User?          @relation(fields: [userId], references: [id])
+
+  skills       ResourceSkill[]
+  timeOffs     TimeOff[]
+  allocations  Allocation[]
+  managedProjects Project[] @relation("ProjectManagerResource")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id        String          @id @default(uuid())
+  name      String          @unique
+  category  String?
+  resources ResourceSkill[]
+}
+
+model ResourceSkill {
+  resourceId String
+  skillId    String
+  level      Int      @default(1) // 1-5
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  skill      Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([resourceId, skillId])
+}
+
+model Project {
+  id                String          @id @default(uuid())
+  name              String
+  customer          String?
+  priority           ProjectPriority @default(MEDIUM)
+  startDate         DateTime
+  endDate           DateTime?
+  status            ProjectStatus   @default(PLANNING)
+  budget            Float?
+  requiredCapacity  Float?          // hours/week required
+  projectManagerId  String?
+  projectManager    Resource?       @relation("ProjectManagerResource", fields: [projectManagerId], references: [id])
+  ownerUserId       String?
+  owner             User?           @relation("ProjectManagerUser", fields: [ownerUserId], references: [id])
+  isInternal        Boolean         @default(false)
+
+  allocations Allocation[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Allocation {
+  id            String   @id @default(uuid())
+  resourceId    String
+  projectId     String
+  hoursPerWeek  Float
+  startDate     DateTime
+  endDate       DateTime?
+  resource      Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([resourceId])
+  @@index([projectId])
+}
+
+model TimeOff {
+  id         String      @id @default(uuid())
+  resourceId String
+  resource   Resource    @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  type       TimeOffType
+  startDate  DateTime
+  endDate    DateTime
+  label      String?
+}
+
+model Notification {
+  id        String            @id @default(uuid())
+  type      NotificationType
+  message   String
+  resourceId String?
+  projectId String?
+  read      Boolean           @default(false)
+  createdAt DateTime          @default(now())
+}
